@@ -1,10 +1,45 @@
 package com.uscs.movies.MovieService.entity.impl;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.uscs.movies.MovieService.entity.Movies;
+import com.uscs.movies.MovieService.entity.Ratings;
+import com.uscs.movies.MovieService.entity.Reviews;
+import com.uscs.movies.MovieService.entity.Theaters;
+
+@Entity
+@Table(name="movies")
 public class MoviesImpl implements Movies {
+	
+@Id
+@Column(name="movieId")
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int movieId;
+
+@Column(name="movieName")
 private String movieName;
+
+@Column(name="movieType")
 private String movieType;
+
+@Column(name="movieDesc")
 private String movieDesc;
+//
+//@OneToMany(targetEntity=ReviewImpl.class, cascade=CascadeType.ALL, mappedBy="movies")
+//private Reviews review;
+//
+//@OneToMany(targetEntity=RatingsImpl.class, cascade=CascadeType.ALL, mappedBy="movies")
+//private Ratings ratings;
+//
+//@ManyToMany(targetEntity=TheatersImpl.class, cascade=CascadeType.ALL, mappedBy="movies")
+//private Theaters theater;
 
 public MoviesImpl(int movieId) {
 	this.movieId = movieId;

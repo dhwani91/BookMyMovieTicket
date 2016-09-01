@@ -9,6 +9,7 @@ import com.uscs.movies.MovieService.entity.*;
 		void addUser(User user);
 		void updateUser(User user);
 		void deleteUser(long userId);
+		User getUser();
 	}
 
 

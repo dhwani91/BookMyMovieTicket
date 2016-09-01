@@ -1,11 +1,31 @@
 package com.uscs.movies.MovieService.entity.impl;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
+import com.uscs.movies.MovieService.entity.Movies;
 import com.uscs.movies.MovieService.entity.Theaters;
-
+@Entity
+@Table(name="theater")
 public class TheatersImpl implements Theaters {
+@Id
+@Column(name="theaterId")
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int theaterId;
+
+@Column(name="theaterName")
 private String theaterName;
+
+@Column(name="theaterAdd")
 private String theaterAddress;
+
+//@ManyToMany(targetEntity=MoviesImpl.class, cascade=CascadeType.ALL, mappedBy="theater")
+//private Movies movie;
 
 public TheatersImpl(int id) {
 	this.theaterId=id;

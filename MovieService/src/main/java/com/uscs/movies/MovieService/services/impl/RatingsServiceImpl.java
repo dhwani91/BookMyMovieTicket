@@ -13,8 +13,7 @@ import com.uscs.movies.MovieService.services.UserService;
 public class RatingsServiceImpl implements RatingsService {
 @Autowired
  MovieService movieService;
-@Autowired
-UserService userService;
+
 
 	@Override
 	public Ratings getRatings(int movieId) {

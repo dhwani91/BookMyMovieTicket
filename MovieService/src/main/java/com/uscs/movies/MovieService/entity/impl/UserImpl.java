@@ -1,15 +1,49 @@
 package com.uscs.movies.MovieService.entity.impl;
-import com.uscs.movies.MovieService.entity.User;
 
+import com.uscs.movies.MovieService.entity.Ratings;
+import com.uscs.movies.MovieService.entity.Reviews;
+import com.uscs.movies.MovieService.entity.User;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+	@Entity
+	@Table(name="user")
 	public class UserImpl implements User {
+		@Id
+		@Column(name="userId")
+		@GeneratedValue(strategy=GenerationType.IDENTITY)		
 		private long id;
+		
+		@Column(name="fName")
 		private String firstName;
+		
+		@Column(name="lName")
 		private String lastName;
+		
+		@Column(name="email")
 		private  String email;
+		
+		@Column(name="password")
 		private String password;
 			
-		public UserImpl(long id) {
-			this.id = id;
+		
+//		@OneToMany(targetEntity=ReviewImpl.class, cascade=CascadeType.ALL, mappedBy="user")
+//		private Reviews review;
+//		
+//		@OneToMany(targetEntity=RatingsImpl.class, cascade=CascadeType.ALL, mappedBy="user")
+//		private Ratings ratings;
+		public UserImpl() {
+			
 		}
 
 		@Override
