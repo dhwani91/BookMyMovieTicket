@@ -1,10 +1,19 @@
 package com.uscs.movies.MovieService.services;
 
-import com.uscs.movies.MovieService.entity.Theaters;
+import java.util.List;
+
+import com.uscs.movies.MovieService.entity.Theater;
 
 public interface TheaterService {
-	Theaters getTheater(int theaterId);
-	void addTheater(Theaters theater);
-	void updateTheater(Theaters theater);
-	void deleteTheater(int theaterId);
+	Theater getTheater(int theaterId);
+
+	Theater addTheater(Theater theater);
+
+	void updateTheater(Theater theater);
+
+	void deleteTheater(int  theaterId);
+
+	List<Theater> getTheaterByZipcode(int zipcode);
+
+	List<Theater> getTheaterByCity(String city);
 }

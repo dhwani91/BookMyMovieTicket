@@ -1,11 +1,17 @@
 package com.uscs.movies.MovieService.entity;
 
-public interface Theaters {
-	
+import java.util.List;
+
+public interface Theater {
+
 	void setTheaterName(String theaterName);
-	void setTheaterAddress(String theaterAddress);
+
 	int getTheaterId();
+
 	String getTheaterName();
-	String  getTheaterAddress();
+
+	Address getAddress();
 	
+//	List<Showtime> getShowtime();
+
 }

@@ -1,15 +1,20 @@
 package com.uscs.movies.MovieService.services;
 
-import com.uscs.movies.MovieService.entity.*;
+import java.util.List;
+
+import com.uscs.movies.MovieService.entity.User;
+
+public interface UserService {
+
+	User getUser(int userId);
+
+	User addUser(User user) throws Exception;
+
+	void updateUser(int  userId) ;
+
+	void deleteUser(int userId);
+
+	public List<User> searchByName(String firstName);
 
 
-	public interface UserService {
-
-		User getUser(long userId);
-		void addUser(User user);
-		void updateUser(User user);
-		void deleteUser(long userId);
-		User getUser();
-	}
-
-
+}

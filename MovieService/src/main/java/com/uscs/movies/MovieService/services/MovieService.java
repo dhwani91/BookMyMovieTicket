@@ -1,10 +1,21 @@
 package com.uscs.movies.MovieService.services;
 
-import com.uscs.movies.MovieService.entity.Movies;
+import java.util.List;
+
+import com.uscs.movies.MovieService.entity.Movie;
+import com.uscs.movies.MovieService.entity.Theater;
 
 public interface MovieService {
-	Movies getMovies(int movieId);
-	void addMovies(Movies movie);
-	void updateMovie(Movies movie);
+	Movie getMovies(int movieId);
+
+	Movie addMovies(Movie movie);
+
+	void updateMovie(Movie movie);
+
 	void deleteMovie(int movieId);
+
+	List<Movie> listMoviesByCity(String city);
+
+	List<Movie> listMoviesByTheater(Theater theater);
+	List<Movie> listMovieByType(String movieType);
 }

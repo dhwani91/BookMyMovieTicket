@@ -1,5 +1,7 @@
 package com.uscs.movies.MovieService.services.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -8,69 +10,88 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+
 import com.uscs.movies.MovieService.entity.User;
 import com.uscs.movies.MovieService.entity.impl.UserImpl;
+import com.uscs.movies.MovieService.repository.RatingRepository;
+import com.uscs.movies.MovieService.repository.ReviewRepository;
 import com.uscs.movies.MovieService.repository.UserRepository;
 import com.uscs.movies.MovieService.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 	private static final int MAX_NAME_LENGTH = 45;
-	private static final int MAX_PIN_LENGTH = 10;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private UserRepository userRepository;
 
-	@Override
-	@Transactional // at method level
-	public User getUser() {
-		// TODO Auto-generated method stub
-		return new UserImpl();
+	@Autowired
+	private ReviewRepository reviewrepository;
+
+	@Autowired
+	private RatingRepository ratingsRepository;
+
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 
 	@Transactional // at method level
 	@Override
-	public void addUser(User user) {
-
+	public User addUser(User user) throws Exception {
 		if (StringUtils.isEmpty(user.getFirstName()) || user.getFirstName().length() > MAX_NAME_LENGTH) {
 			try {
 				throw new Exception("firstName is required");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("addUser", e);
 			}
 		}
 
 		if (StringUtils.isEmpty(user.getLastName()) || user.getLastName().length() > MAX_NAME_LENGTH) {
 			try {
-				throw new Exception("lastName is required");
+				throw new Exception("Lastanme is required");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("addUser", e);
 			}
 		}
-		// TODO Auto-generated method stub
+		UserImpl impl = (UserImpl)user;		
+		int id =  (int) userRepository.addUser(user);
+		return getUser(id);
+//		userRepository.addUser(user);
+	}
+	
+
+	@Transactional // at method level
+	@Override
+	public void updateUser(int  userId) {
+		User user=getUser(userId);
+		System.out.println("update user service user"+ user.getEmail());
+		userRepository.update(user);
+		
+
 	}
 
 	@Transactional // at method level
 	@Override
-	public void updateUser(User user) {
-		// TODO Auto-generated method stub
+	public void deleteUser(int userId) {
+		User user = getUser(userId);
+		reviewrepository.deleteReviewByUser(user);
+		ratingsRepository.deleteRatingsByUser(user);
+		userRepository.delete(userId);
 
 	}
 
-	@Transactional // at method level
+	@Transactional
 	@Override
-	public void deleteUser(long userId) {
-		// TODO Auto-generated method stub
-
+	public User getUser(int userId) {
+		return userRepository.getUser(userId);
 	}
 
+	@Transactional
 	@Override
-	public User getUser(long userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<User> searchByName(String firstName) {
+		List <User> searchUser=userRepository.searchByFn(firstName);
+		return searchUser;
 	}
 
 }

@@ -5,7 +5,7 @@
 	<groupId>com.uscs.movies</groupId>
 	<artifactId>MovieService</artifactId>
 	<version>2.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>${project.artifactId}</name>
 
