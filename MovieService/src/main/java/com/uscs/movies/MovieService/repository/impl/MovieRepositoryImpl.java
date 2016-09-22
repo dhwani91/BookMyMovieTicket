@@ -28,38 +28,29 @@ public class MovieRepositoryImpl implements MovieRepository {
 		int id = (Integer) session.save(movie);
 		logger.info("Movie added Successfully" + movie);
 		return id;
-//		return (Integer) this.sessionFactory.getCurrentSession().save(movie);
 	}
 
 	@Override
-	public Movie getMovies(int movieId) {
+	public Movie getMovie(int movieId) {
 		return (Movie) this.sessionFactory.getCurrentSession().get(MovieImpl.class, movieId);
 	}
 
 	@Override
 	public void updateMovie(Movie movie) {
 		Session s = sessionFactory.getCurrentSession();
-		s.saveOrUpdate(movie);
+		s.update(movie);
 
 	}
 
 	@Override
-	public void deleteMovie(int movieId) {
-
+	public void deleteMovie(Movie movie) {
 		Session s = sessionFactory.getCurrentSession();
-		Movie m1 = (Movie) s.load(MovieImpl.class, movieId);
-		s.delete(m1);
-	}
-
-	@Override
-	public List<Movie> search(String movieName) {
-		
-		return null;
+		s.delete(movie);
 	}
 
 	@Override
 	public List<Movie> listMovieByTheater(Theater theater) {
-	
+
 		return null;
 	}
 

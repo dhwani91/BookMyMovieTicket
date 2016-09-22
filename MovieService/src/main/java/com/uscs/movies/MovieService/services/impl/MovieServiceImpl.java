@@ -10,16 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.uscs.movies.MovieService.entity.FavouriteMovie;
 import com.uscs.movies.MovieService.entity.Movie;
 import com.uscs.movies.MovieService.entity.Theater;
 import com.uscs.movies.MovieService.entity.impl.MovieImpl;
-import com.uscs.movies.MovieService.entity.impl.UserImpl;
-import com.uscs.movies.MovieService.repository.FavouriteMovieRepository;
 import com.uscs.movies.MovieService.repository.MovieRepository;
-import com.uscs.movies.MovieService.repository.RatingRepository;
-import com.uscs.movies.MovieService.repository.ReviewRepository;
-import com.uscs.movies.MovieService.repository.TheaterRepository;
 import com.uscs.movies.MovieService.services.MovieService;
 
 @Service
@@ -30,23 +24,12 @@ public class MovieServiceImpl implements MovieService {
 
 	@Autowired
 	private MovieRepository movieRepo;
-//	@Autowired
-//	private TheaterRepository theaterRepo;
-//	@Autowired
-//	private FavouriteMovieRepository favMovieRepo;
-//	
-//	@Autowired
-//	private ReviewRepository  reviewRepo;
-//	
-//	@Autowired
-//	private RatingRepository ratingRepo;
 
 	@Transactional
 	@Override
 	public Movie getMovies(int movieId) {
-	return 	movieRepo.getMovies(movieId);
-		
-		
+		return movieRepo.getMovie(movieId);
+
 	}
 
 	@Transactional
@@ -75,8 +58,8 @@ public class MovieServiceImpl implements MovieService {
 				logger.error("add movie description", e);
 			}
 		}
-		MovieImpl impl = (MovieImpl)movie;		
-		int id =  (int) movieRepo.addMovies(movie);
+		MovieImpl impl = (MovieImpl) movie;
+		int id = (int) movieRepo.addMovies(movie);
 		return getMovies(id);
 	}
 
@@ -89,14 +72,11 @@ public class MovieServiceImpl implements MovieService {
 
 	@Transactional
 	@Override
-	public void deleteMovie(int movieId) {
-		Movie movie = getMovies(movieId);
-//		favMovieRepo.deleteFavouriteMovie(movie);
-		
-		this.movieRepo.deleteMovie(movieId);
+	public void deleteMovie(Movie movie) {
+		this.movieRepo.deleteMovie(movie);
 
 	}
-	
+
 	@Override
 	public List<Movie> listMoviesByCity(String city) {
 		return null;
@@ -106,11 +86,11 @@ public class MovieServiceImpl implements MovieService {
 	public List<Movie> listMoviesByTheater(Theater theater) {
 		return null;
 	}
-	
+
 	@Transactional
 	@Override
 	public List<Movie> listMovieByType(String movieType) {
-		List<Movie> listMovieByType=this.movieRepo.listMovieByType(movieType);
+		List<Movie> listMovieByType = this.movieRepo.listMovieByType(movieType);
 		return listMovieByType;
 	}
 

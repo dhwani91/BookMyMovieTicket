@@ -39,26 +39,24 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 		return (Review) this.sessionFactory.getCurrentSession().get(ReviewImpl.class, reviewId);
 	}
 
-
-
 	@Override
 	public void deleteReviewByUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Query query = session.getNamedQuery("deleteReviewByUser").setEntity("user", user);
 		query.executeUpdate();
 	}
-	
-	@Override
-	public void deleteReview(int reviewid) {
-		Session s = sessionFactory.getCurrentSession();
-		Review m1 = (Review) s.load(ReviewImpl.class, reviewid);
-		s.delete(m1);
-	}
 
-	
+	@Override
+	public void deleteReview(Review review) {
+		Session s = sessionFactory.getCurrentSession();
+//		Review m1 = (Review) s.load(ReviewImpl.class, reviewid);
+		s.delete(review);
+	}
 
 	@Override
 	public List<Review> listReviewByMovies(Movie movie) {
+		// int movieId=movie.getId();
+
 		Query query = this.sessionFactory.getCurrentSession().getNamedQuery("getReviewByMovie").setEntity("movie",movie);
 		List<Review> searchResult = query.list();
 		return searchResult;
@@ -66,18 +64,11 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	public List<Review> listReviewByUser(User user) {
-		Query query = this.sessionFactory.getCurrentSession().getNamedQuery("getReviewByUser").setEntity("user",user);
+		// int userId=user.getId();
+		Query query = this.sessionFactory.getCurrentSession().getNamedQuery("getReviewByUser").setEntity("user", user);
 		List<Review> searchResult = query.list();
 		return searchResult;
-		
-	}
 
-	@Override
-	public void deleteReview(Review review) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	
 
 }

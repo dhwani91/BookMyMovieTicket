@@ -11,9 +11,11 @@ public interface TheaterService {
 
 	void updateTheater(Theater theater);
 
-	void deleteTheater(int  theaterId);
+	void deleteTheater(Theater  theater);
 
 	List<Theater> getTheaterByZipcode(int zipcode);
 
 	List<Theater> getTheaterByCity(String city);
+
+	//List<Theater> getTheaterByMovie(int movieId);
 }

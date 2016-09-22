@@ -10,7 +10,7 @@ public interface UserService {
 
 	User addUser(User user) throws Exception;
 
-	void updateUser(int  userId) ;
+	void updateUser(User  user) ;
 
 	void deleteUser(int userId);
 

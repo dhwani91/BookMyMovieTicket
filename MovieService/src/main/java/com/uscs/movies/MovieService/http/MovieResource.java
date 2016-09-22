@@ -25,38 +25,56 @@ import org.springframework.stereotype.Component;
 import com.uscs.movies.MovieService.entity.Movie;
 import com.uscs.movies.MovieService.entity.Theater;
 import com.uscs.movies.MovieService.entity.impl.MovieImpl;
+import com.uscs.movies.MovieService.exception.ErrorCode;
+import com.uscs.movies.MovieService.exception.MovieServiceException;
 import com.uscs.movies.MovieService.http.entity.HttpMovie;
 import com.uscs.movies.MovieService.http.entity.HttpTheater;
 import com.uscs.movies.MovieService.services.MovieService;
 
 @Path("/movies")
 @Component
-@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class MovieResource {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private MovieService movieService;
-	
 
-
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	@POST
 	@Path("/")
 	public Response createMovie(HttpMovie newMovie) throws Exception {
 		Movie MovieToCreate = convert(newMovie);
 		Movie addedMovie = movieService.addMovies(MovieToCreate);
-		return Response.status(Status.CREATED).header("Location", "/movie/" + MovieToCreate.getId())
+		if (addedMovie.getMovieName() == null) {
+			throw new MovieServiceException(ErrorCode.INVALID_FIELD, "MovieName is missiong");
+		}
+		if (addedMovie.getMovieType() == null) {
+			throw new MovieServiceException(ErrorCode.INVALID_FIELD, "Movie type is missiong");
+		}
+		if (addedMovie.getMovieDesc() == null) {
+			throw new MovieServiceException(ErrorCode.INVALID_FIELD, "Movie Description is missiong");
+		}
+
+		return Response.status(Status.CREATED).header("Location", "/movie/" + MovieToCreate.getMovieId())
 				.entity(new HttpMovie(addedMovie)).build();
 	}
 
+	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/{movieId}")
-	public HttpMovie getMovieById(@PathParam("movieId") int movieId) {
+	public HttpMovie getMovieById(@PathParam("movieId") int movieId) throws MovieServiceException {
 		logger.info("getting movie by id:" + movieId);
 		Movie movie = movieService.getMovies(movieId);
+		if (movie == null) {
+			throw new MovieServiceException(ErrorCode.MISSING_DATA, "Movie not found");
+		}
 		return new HttpMovie(movie);
 	}
+
+	@Produces({ MediaType.APPLICATION_JSON })
 	@GET
 	@Path("/")
 	@Wrapped(element = "movies")
@@ -70,40 +88,31 @@ public class MovieResource {
 		return returnList;
 	}
 
-	//
-	// @GET
-	// @Path("/")
-	// @Wrapped(element="users")
-	// public List<HttpUser> getUserSearch(@QueryParam("firstName") String
-	// firstName, @QueryParam("lastName") String lastName) throws TBTFException{
-	// logger.info("user search firstName="+firstName+" lastName="+lastName);
-	// List<User> found = userService.getUsers(firstName, lastName);
-	// List<HttpUser> returnList = new ArrayList<>(found.size());
-	// for(User user:found){
-	// returnList.add(new HttpUser(user));
-	// }
-	// return returnList;
-	// }
 	@DELETE
 	@Path("/{movieId}")
-	public void deleteMovieById(@PathParam("movieId") int movieId) {
+	public void deleteMovieById(@PathParam("movieId") int movieId) throws MovieServiceException {
+		Movie movie = movieService.getMovies(movieId);
 		logger.info("getting movie by id:" + movieId);
-		movieService.deleteMovie(movieId);
+		if (movie == null) {
+			throw new MovieServiceException(ErrorCode.MISSING_DATA, "Movie is not Exist");
+		}
+		movieService.deleteMovie(movie);
 
 	}
 
+	@Consumes(MediaType.APPLICATION_JSON)
 	@PUT
 	@Path("/{movieId}")
-	public void updateUserById(@PathParam("movieId") int movieId) {
-		logger.info("getting movie by id:" + movieId);
-		Movie movie = movieService.getMovies(movieId);
-		System.out.println(movie.getMovieName());
+	public void updateMovie(@PathParam("movieId") int movieId, HttpMovie httpMovie) {
+		Movie movie = convert(httpMovie);
+		movie.setMovieId(movieId);
 		movieService.updateMovie(movie);
 
 	}
 
 	private Movie convert(HttpMovie httpMovie) {
 		MovieImpl movie = new MovieImpl();
+		movie.setMovieId(httpMovie.movieId);
 		movie.setMovieName(httpMovie.movieName);
 		movie.setMovieType(httpMovie.movieType);
 		movie.setMovieDesc(httpMovie.movieDesc);

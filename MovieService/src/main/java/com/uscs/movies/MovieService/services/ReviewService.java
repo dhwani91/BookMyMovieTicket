@@ -8,15 +8,15 @@ import com.uscs.movies.MovieService.entity.User;
 
 public interface ReviewService {
 	Review getReviewById(int reviewId);
-	Review getReview(int movieId);
 
 	Review addReview(Review review);
 
-	void deleteReview(int  reviewId);
+	void deleteReview(Review review);
 
-	List<Review> listReviewByUser(User user);
-	List<Review> listReviewByMovie(Movie movie);
+	List<Review> listReviewByMovie(int movieId);
 
 	void updateReview(Review review);
+
+	List<Review> listReviewByUser(int userId);
 
 }

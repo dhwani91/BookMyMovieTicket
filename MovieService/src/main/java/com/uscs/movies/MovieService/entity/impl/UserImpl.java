@@ -18,7 +18,7 @@ public class UserImpl implements User {
 	@Id
 	@Column(name = "userId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "fName")
 	private String firstName;
@@ -33,7 +33,7 @@ public class UserImpl implements User {
 	private String password;
 
 	@Override
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -57,29 +57,30 @@ public class UserImpl implements User {
 
 	@Override
 	public void setEmail(String email) {
-		// TODO Auto-generated method stub
 		this.email = email;
 
 	}
 
 	@Override
 	public void setFirstName(String firstname) {
-		// TODO Auto-generated method stub
 		this.firstName = firstname;
 
 	}
 
 	@Override
 	public void setLastName(String lastname) {
-		// TODO Auto-generated method stub
 		this.lastName = lastname;
 
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
 		this.password = password;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

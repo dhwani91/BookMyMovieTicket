@@ -11,9 +11,9 @@ public interface UserRepository {
 	 * @param user
 	 * @return the id of the newly added user
 	 */
-	long addUser(User user);
+	int addUser(User user);
 
-	User getUser(long userId);
+	User getUser(int userId);
 
 	List<User> search(String firstName, String lastName);
 
@@ -21,6 +21,6 @@ public interface UserRepository {
 
 	void update(User user);
 
-	void delete(long userId);
+	void delete(int userId);
 
 }

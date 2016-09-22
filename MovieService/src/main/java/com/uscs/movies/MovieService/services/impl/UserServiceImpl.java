@@ -63,9 +63,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional // at method level
 	@Override
-	public void updateUser(int  userId) {
-		User user=getUser(userId);
-		System.out.println("update user service user"+ user.getEmail());
+	public void updateUser(User user) {
 		userRepository.update(user);
 		
 

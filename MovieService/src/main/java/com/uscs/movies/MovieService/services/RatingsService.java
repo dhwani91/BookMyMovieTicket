@@ -6,15 +6,16 @@ import com.uscs.movies.MovieService.entity.Rating;
 import com.uscs.movies.MovieService.entity.User;
 
 public interface RatingsService {
-	Rating getRatings(int movieId);
+
 	Rating getRatingbyId(int ratingId);
 
 	Rating addRating(Rating rating);
 
-	void deleteRating(int ratingId);
-
 	void updateRating(Rating rating);
-	
-	List<Rating> listRatingByUser(User user);
-//	List<Rating> listRatingByMovie(int movieId);
+
+	List<Rating> listRatingByUser(int userId);
+
+	List<Rating> listRatingByMovie(int movieId);
+
+	void deleteRating(Rating rating);
 }

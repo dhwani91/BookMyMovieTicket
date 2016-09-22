@@ -1,7 +1,7 @@
 package com.uscs.movies.MovieService.entity;
 
 public interface User {
-	long getId();
+	int getId();
 
 	String getFirstName();
 
@@ -10,6 +10,8 @@ public interface User {
 	String getEmail();
 
 	String getPassword();
+
+	void setId(int id);
 
 	void setEmail(String email);
 

@@ -22,10 +22,6 @@ private UserService userService;
 
 @Test
 public void testGetReview(){
-	Review reviewget = reviewService.getReview(11);
-//	reviewget.setReview(11, "good");
-//	Assert.assertEquals("good", reviewget.getReview(11));
-	System.out.println(reviewget);
 }
 
 }

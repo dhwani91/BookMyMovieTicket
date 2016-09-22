@@ -35,15 +35,15 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public long addUser(User user) {
+	public int addUser(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		long id = (Long) session.save(user);
+		int id = (int) session.save(user);
 		logger.info("User added Successfully" + user);
 		return id;
 	}
 
 	@Override
-	public User getUser(long userId) {
+	public User getUser(int userId) {
 		return (User) this.sessionFactory.getCurrentSession().get(UserImpl.class, userId);
 	}
 
@@ -67,12 +67,14 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public void update(User user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(user);
+		session.saveOrUpdate(user);
+		logger.info("User updated successfully, Person Details="+user);
+		
 
 	}
 
 	@Override
-	public void delete(long userId) {
+	public void delete(int userId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		User user = getUser(userId);
 		if (user != null) {

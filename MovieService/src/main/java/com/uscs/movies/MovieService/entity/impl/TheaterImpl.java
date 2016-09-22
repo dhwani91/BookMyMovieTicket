@@ -18,7 +18,7 @@ import com.uscs.movies.MovieService.entity.Theater;
 
 @NamedQueries({
 		@NamedQuery(name = "listTheaterByZipcode", query = "SELECT u FROM TheaterImpl u WHERE u.thAddress.zipcode = :zipcode"),
-		@NamedQuery(name = "listTheaterByCity", query = "SELECT u FROM TheaterImpl u WHERE u.thAddress.city = :city") })
+		@NamedQuery(name = "listTheaterByCity", query = "SELECT u FROM TheaterImpl u WHERE u.thAddress.city = :city")})
 
 @Entity
 @Table(name = "theaters")
@@ -44,10 +44,13 @@ public class TheaterImpl implements Theater {
 
 		this.theaterName = theaterName;
 	}
-
+	@Override
+	public void setTheaterId(int theaterId) {
+	this.theaterId=theaterId;
+		
+	}
 	@Override
 	public int getTheaterId() {
-
 		return theaterId;
 	}
 
@@ -75,5 +78,7 @@ public class TheaterImpl implements Theater {
 	public String toString() {
 		return "TheaterImpl [id=" + theaterId + ", Theater=" + theaterName;
 	}
+
+	
 
 }

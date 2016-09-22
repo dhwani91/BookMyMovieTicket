@@ -16,6 +16,9 @@ import com.uscs.movies.MovieService.entity.Theater;
 import com.uscs.movies.MovieService.entity.User;
 import com.uscs.movies.MovieService.repository.FavouriteMovieRepository;
 import com.uscs.movies.MovieService.repository.FavouriteTheaterRepository;
+import com.uscs.movies.MovieService.repository.MovieRepository;
+import com.uscs.movies.MovieService.repository.TheaterRepository;
+import com.uscs.movies.MovieService.repository.UserRepository;
 import com.uscs.movies.MovieService.services.FavouriteService;
 
 @Service
@@ -25,42 +28,59 @@ public class FavouriteServiceimpl implements FavouriteService {
 	private FavouriteMovieRepository favMovieRepo;
 	@Autowired
 	private FavouriteTheaterRepository favTheaterRepo;
+	@Autowired
+	private UserRepository userRepo;
+	@Autowired
+	private TheaterRepository theaterRepo;
+	@Autowired
+	private MovieRepository movieRepo;
 
 	@Transactional
 	@Override
-	public void addFavTheater(FavouriteTheater theater) {
-		if(theater !=null){
-			this.addFavTheater(theater);
-		}
-		
-	}
-
-	@Override
-	public void addFavMovie(FavouriteMovie movie) {
-		this.addFavMovie(movie);
+	public int addFavTheater(FavouriteTheater theater) {
+		int addedFavTheaterId = favTheaterRepo.addFavouriteTheater(theater);
+		return addedFavTheaterId;
 
 	}
 
+	@Transactional
 	@Override
-	public List<FavouriteTheater> listFavTheater(User user) {
-		
-		return null;
-	}
+	public int addFavMovie(FavouriteMovie movie) {
 
-	@Override
-	public List<FavouriteMovie> listFavMovie(User user) {
-
-		return null;
-	}
-
-	@Override
-	public void deleteTheater(Theater theater) {
+		int addedFavMovieId = favMovieRepo.addFavouriteMovie(movie);
+		return addedFavMovieId;
 
 	}
 
+	@Transactional
 	@Override
-	public void deleteMovie(Movie movie) {
+	public List<FavouriteTheater> listFavTheater(int userId) {
+		User user = userRepo.getUser(userId);
+		List<FavouriteTheater> listFavTheatres = favTheaterRepo.listFavouriteTheater(user);
+		return listFavTheatres;
+	}
 
+	@Transactional
+	@Override
+	public List<FavouriteMovie> listFavMovie(int userId) {
+		User user = userRepo.getUser(userId);
+		List<FavouriteMovie> listFavMovies = favMovieRepo.listFavouriteMovie(user);
+		return listFavMovies;
+	}
+
+	@Transactional
+	@Override
+	public void deleteTheater(int theaterId) {
+		Theater theater = theaterRepo.getTheater(theaterId);
+		favTheaterRepo.deleteFavouriteTheater(theater);
+	}
+
+	@Transactional
+	@Override
+	public void deleteMovie(int movieId) {
+
+		Movie movie = movieRepo.getMovie(movieId);
+		favMovieRepo.deleteFavouriteMovie(movie);
 	}
 
 }

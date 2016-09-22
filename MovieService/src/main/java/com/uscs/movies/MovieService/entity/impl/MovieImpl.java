@@ -12,7 +12,8 @@ import javax.persistence.Table;
 import com.uscs.movies.MovieService.entity.Movie;
 
 @NamedQueries({
-		@NamedQuery(name = "listMovieByType", query = "SELECT re FROM MovieImpl re WHERE re.movieType = :movieType") })
+		@NamedQuery(name = "listMovieByType", query = "SELECT re FROM MovieImpl re WHERE re.movieType = :movieType"),
+		@NamedQuery(name = "getMovie", query = "SELECT re FROM MovieImpl re WHERE re.movieName = :movieName") })
 @Entity
 @Table(name = "movies")
 public class MovieImpl implements Movie {
@@ -71,9 +72,12 @@ public class MovieImpl implements Movie {
 		return movieDesc;
 	}
 
-	@Override
-	public int getId() {
+	public int getMovieId() {
 		return movieId;
+	}
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
 	}
 
 	@Override

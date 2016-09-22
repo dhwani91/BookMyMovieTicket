@@ -64,10 +64,9 @@ class TheaterServiceImpl implements TheaterService {
 
 	@Transactional
 	@Override
-	public void deleteTheater(int theaterId) {
-		Theater th = getTheater(theaterId);
-		this.favTheaterRepo.deleteFavouriteTheater(th);
-		this.theaterRepository.deleteTheater(th);
+	public void deleteTheater(Theater theater) {
+		this.favTheaterRepo.deleteFavouriteTheater(theater);
+		this.theaterRepository.deleteTheater(theater);
 		// favMovieRepo.deleteFavouriteMovie(movie);
 
 	}
@@ -85,5 +84,12 @@ class TheaterServiceImpl implements TheaterService {
 		List<Theater> listTheatersByCity = this.theaterRepository.getTheaterByCity(city);
 		return listTheatersByCity;
 	}
+//	@Transactional
+//	@Override
+//	public List<Theater> getTheaterByMovie(int movieId) {
+//		List<Theater> showtimeByTheater=this.theaterRepository.getTheaterByMovie(movieId);
+//		return showtimeByTheater;
+//
+//	}
 
 }

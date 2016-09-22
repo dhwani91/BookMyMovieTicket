@@ -74,7 +74,7 @@ public class TestShowtimeRepository extends AbstractTransactionalJUnit4SpringCon
 		
 		//get Theaters and showtime 
 		
-		Movie movie=movieRepository.getMovies(newMovie.getId());
+		Movie movie=movieRepository.getMovie(newMovie.getMovieId());
 		List<Showtime> showtimeByMovie = showtimeRepository.getShowtimeByMovie(movie);
 		System.out.println("Movie Name:"+movie.getMovieName());
 		for (int i = 0; i < showtimeByMovie.size(); i++) {

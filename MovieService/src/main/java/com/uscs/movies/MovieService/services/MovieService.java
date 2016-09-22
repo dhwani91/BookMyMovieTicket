@@ -12,7 +12,7 @@ public interface MovieService {
 
 	void updateMovie(Movie movie);
 
-	void deleteMovie(int movieId);
+	void deleteMovie(Movie movie);
 
 	List<Movie> listMoviesByCity(String city);
 

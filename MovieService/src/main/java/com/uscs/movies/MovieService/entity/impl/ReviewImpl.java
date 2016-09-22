@@ -30,11 +30,11 @@ public class ReviewImpl implements Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reviewId;
 
-	@ManyToOne(targetEntity = MovieImpl.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = MovieImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "movieId", nullable = false)
 	Movie movie;
 
-	@ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", nullable = false)
 	User user;
 
@@ -47,7 +47,7 @@ public class ReviewImpl implements Review {
 	}
 
 	public String toString() {
-		return "ReviewImpl [id=" + movie.getId() + ", Review=" + review + "]";
+		return "ReviewImpl [id=" + movie.getMovieId() + ", Review=" + review + "]";
 	}
 
 	@Override

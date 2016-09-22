@@ -52,7 +52,7 @@ public class TestReviewRepository extends AbstractTransactionalJUnit4SpringConte
 		
 		// add movie review
 		newReview.setReview(newMovie, newUser, "boring movie till intermission");
-		long reId = reviewRepo.addReview(newReview);
+		int  reId = reviewRepo.addReview(newReview);
 		System.out.println("added revie:" + reId);
 		
 

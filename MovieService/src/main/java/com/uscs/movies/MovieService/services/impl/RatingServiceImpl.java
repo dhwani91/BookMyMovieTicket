@@ -30,31 +30,19 @@ public class RatingServiceImpl implements RatingsService {
 
 	@Transactional
 	@Override
-	public Rating getRatings(int movieId) {
-		Rating rating = this.ratingRepo.getRatings(movieId);
-
-		return rating;
-	}
-
-
-	
-	@Transactional
-	@Override
 	public Rating addRating(Rating rating) {
 		RatingImpl impl = (RatingImpl) rating;
 		int id = ratingRepo.addRatings(rating);
 		return impl;
-		
-		
+
 	}
 
 	@Transactional
 	@Override
-	public void deleteRating(int  ratingId) {
-		if (ratingId != 0) {
-			Rating th = getRatingbyId(ratingId);
-			this.ratingRepo.deleteRating(th);
-			
+	public void deleteRating(Rating rating) {
+		if (rating != null) {
+			this.ratingRepo.deleteRating(rating);
+
 		}
 	}
 
@@ -67,23 +55,26 @@ public class RatingServiceImpl implements RatingsService {
 
 	@Transactional
 	@Override
-	public List<Rating> listRatingByUser(User user) {
+	public List<Rating> listRatingByUser(int userId) {
+		User user = this.userRepo.getUser(userId);
 		List<Rating> listRatingByUser = this.ratingRepo.listRatingsByUser(user);
 		return listRatingByUser;
 	}
 
-	public List<Rating> listRatingByMovie(Movie movie) {
+	@Transactional
+	@Override
+	public List<Rating> listRatingByMovie(int  movieId) {
+		Movie movie = this.movieRepo.getMovie(movieId);
 		List<Rating> listRatingByMovie = this.ratingRepo.listRatingsByMovie(movie);
 		return listRatingByMovie;
 	}
 
+	@Transactional
 	@Override
 	public Rating getRatingbyId(int ratingId) {
-		Rating rating = this.ratingRepo.getRatings(ratingId);
-
+		Rating rating = this.ratingRepo.getRatingById(ratingId);
 		return rating;
-	
-	}
 
+	}
 
 }

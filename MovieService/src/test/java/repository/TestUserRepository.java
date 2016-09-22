@@ -37,7 +37,7 @@ public class TestUserRepository extends AbstractTransactionalJUnit4SpringContext
 		newUser.setPassword("1245");
 
 		// create new user
-		long addedUserId = userRepository.addUser(newUser);
+		int addedUserId = userRepository.addUser(newUser);
 		System.out.println("user added id " + addedUserId);
 		Assert.assertNotEquals(0, addedUserId);
 

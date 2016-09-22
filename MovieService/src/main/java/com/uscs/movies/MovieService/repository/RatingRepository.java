@@ -7,8 +7,8 @@ import com.uscs.movies.MovieService.entity.Rating;
 import com.uscs.movies.MovieService.entity.User;
 
 public interface RatingRepository {
-	Rating getRatings(int movieId);
-Rating getRatingById(int ratingId);
+
+	Rating getRatingById(int ratingId);
 
 	int addRatings(Rating rating);
 

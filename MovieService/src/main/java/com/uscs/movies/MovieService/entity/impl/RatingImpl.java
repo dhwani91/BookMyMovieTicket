@@ -19,8 +19,8 @@ import com.uscs.movies.MovieService.entity.Rating;
 import com.uscs.movies.MovieService.entity.User;
 
 @NamedQueries({ @NamedQuery(name = "deleteRatingByUser", query = "DELETE FROM RatingImpl re WHERE re.user = :user"),
-				@NamedQuery(name="getRatingByUser", query="SELECT re FROM RatingImpl re WHERE re.user= :user"),
-				@NamedQuery(name="getRatingByMovie", query="SELECT re FROM RatingImpl re WHERE re.movie= :movie")})
+		@NamedQuery(name = "getRatingByUser", query = "SELECT re FROM RatingImpl re WHERE re.user= :user"),
+		@NamedQuery(name = "getRatingByMovie", query = "SELECT re FROM RatingImpl re WHERE re.movie= :movie") })
 @Entity
 @Table(name = "ratings")
 public class RatingImpl implements Rating {
@@ -30,11 +30,11 @@ public class RatingImpl implements Rating {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ratingId;
 
-	@ManyToOne(targetEntity = MovieImpl.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = MovieImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "movieId", nullable = false)
 	Movie movie;
 
-	@ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId", nullable = false)
 	User user;
 
@@ -42,7 +42,7 @@ public class RatingImpl implements Rating {
 	private int ratings;
 
 	public String toString() {
-		return "ReviewImpl [id=" + movie.getId() + ", Ratings=" + ratings + "]";
+		return "rating [id=" + movie.getMovieId() + ", Ratings=" + ratings + "]";
 	}
 
 	public void setMovie(Movie movie) {
@@ -86,28 +86,28 @@ public class RatingImpl implements Rating {
 
 	@Override
 	public Rating getRating(int rating) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
-	public void setStar(int star){
-		this.ratings=star;
-		
+
+	public void setStar(int star) {
+		this.ratings = star;
+
 	}
 
 	@Override
 	public int getStar() {
-		
+
 		return ratings;
 	}
-	
-	public void setRatingId(int ratingId){
-		this.ratingId=ratingId;
+
+	public void setRatingId(int ratingId) {
+		this.ratingId = ratingId;
 	}
-	
 
 	@Override
 	public int getRatingId() {
-	
+
 		return ratingId;
 	}
 }

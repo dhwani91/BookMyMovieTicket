@@ -35,7 +35,7 @@ public class TheaterRepositoryImpl implements TheaterRepository {
 	@Override
 	public void updateTheater(Theater theater) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(theater);
+		session.saveOrUpdate(theater);
 	}
 
 	@Override
@@ -65,6 +65,14 @@ public class TheaterRepositoryImpl implements TheaterRepository {
 		List<Theater> searchResult = query.list();
 		return searchResult;
 	}
+
+//	@Override
+//	public List<Theater> getTheaterByMovie(int movieId) {
+//		Query query = this.sessionFactory.getCurrentSession().getNamedQuery("listTheaterByMovie").setInteger("movieId",movieId);
+//		List<Theater> searchResult = query.list();
+//		return searchResult;
+//	
+//	}
 
 
 }

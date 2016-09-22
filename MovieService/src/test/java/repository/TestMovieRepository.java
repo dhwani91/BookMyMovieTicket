@@ -33,10 +33,11 @@ public class TestMovieRepository extends AbstractTransactionalJUnit4SpringContex
 		newMovie.setMovieDesc("animation movie");
 		newMovie.setMovieType("drama");
 		int addedmovieId = (int) movieRepository.addMovies(newMovie);
+		Movie addedMovie = movieRepository.getMovie(addedmovieId);
 		System.out.println("movie added id " + addedmovieId);
 
 		// get movie
-		Movie found = movieRepository.getMovies(addedmovieId);
+		Movie movieAdded= movieRepository.getMovie(addedmovieId);
 
 		// update movie
 		newMovie.setMovieName("The sully");
@@ -45,7 +46,7 @@ public class TestMovieRepository extends AbstractTransactionalJUnit4SpringContex
 
 		// delete movie
 
-		movieRepository.deleteMovie(found.getId());
+		movieRepository.deleteMovie(addedMovie);
 
 	}
 }

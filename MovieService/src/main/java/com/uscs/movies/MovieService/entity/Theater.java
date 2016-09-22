@@ -12,6 +12,8 @@ public interface Theater {
 
 	Address getAddress();
 	
+	void setTheaterId(int theaterId);
+	
 //	List<Showtime> getShowtime();
 
 }

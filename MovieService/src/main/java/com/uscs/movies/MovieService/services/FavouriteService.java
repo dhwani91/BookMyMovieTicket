@@ -10,12 +10,12 @@ import com.uscs.movies.MovieService.entity.User;
 
 public interface FavouriteService {
 	
-	void addFavTheater(FavouriteTheater theater);
-	void addFavMovie(FavouriteMovie movie);
-	List<FavouriteTheater> listFavTheater(User user);
-	List<FavouriteMovie> listFavMovie(User user);
-	void deleteTheater(Theater theater);
-	void deleteMovie(Movie movie);
+	int addFavTheater(FavouriteTheater theater);
+	int addFavMovie(FavouriteMovie movie);
+	List<FavouriteTheater> listFavTheater(int  userId);
+	List<FavouriteMovie> listFavMovie(int userId);
+	void deleteTheater(int theaterId);
+	void deleteMovie(int movieId);
 	
 	
 
